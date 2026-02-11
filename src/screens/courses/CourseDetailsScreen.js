@@ -11,9 +11,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useCourseDetails, useCourseProgress } from '../../hooks/api/courses/useCourses';
 import { useAuth } from '../../contexts/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
-const CourseDetailsScreen = ({ route, navigation }) => {
-  const { courseId } = route.params;
+const CourseDetailsScreen = () => {
+  const { courseId } = useLocalSearchParams();
+  const router = useRouter();
   const { user } = useAuth();
 
   const { data: course, isLoading: courseLoading } = useCourseDetails(courseId);
@@ -134,7 +136,10 @@ const CourseDetailsScreen = ({ route, navigation }) => {
           <TouchableOpacity
             style={styles.primaryButton}
             onPress={() =>
-              navigation.navigate('CourseContent', { courseId: course.id })
+              router.push({
+                pathname: '/courses/[courseId]/content',
+                params: { courseId: course.id },
+              })
             }
           >
             <Text style={styles.primaryButtonText}>

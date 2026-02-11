@@ -45,4 +45,7 @@ export const queryKeys = {
   // Dashboard
   dashboardStats: (userId) => ['dashboardStats', userId],
   recentActivity: (userId) => ['recentActivity', userId],
+
+  // Channels
+  channelsWithContents: (lang) => ['channelsWithContents', lang],
 };

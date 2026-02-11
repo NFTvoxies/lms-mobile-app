@@ -11,9 +11,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../../contexts/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
 import { useUserLearningPlans } from '../../hooks/api/learningPlans/useLearningPlans';
+import { useRouter } from 'expo-router';
 
-const LearningPlansScreen = ({ navigation }) => {
+const LearningPlansScreen = () => {
   const { user } = useAuth();
+  const router = useRouter();
   const { data: plansData, isLoading } = useUserLearningPlans(user?.id);
 
   const plans = plansData?.plans || plansData || [];
@@ -22,7 +24,10 @@ const LearningPlansScreen = ({ navigation }) => {
     <TouchableOpacity
       style={styles.planCard}
       onPress={() =>
-        navigation.navigate('LearningPlanDetails', { planId: item.id })
+        router.push({
+          pathname: '/learning-plans/[planId]',
+          params: { planId: item.id },
+        })
       }
     >
       <View style={styles.planHeader}>

@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useLocalSearchParams } from 'expo-router';
 
-const CourseContentScreen = ({ route }) => {
-  const { courseId } = route.params;
+const CourseContentScreen = () => {
+  const { courseId } = useLocalSearchParams();
 
   return (
     <SafeAreaView style={styles.container}>

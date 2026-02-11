@@ -2,9 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLearningPlanDetails } from '../../hooks/api/learningPlans/useLearningPlans';
+import { useLocalSearchParams } from 'expo-router';
 
-const LearningPlanDetailsScreen = ({ route }) => {
-  const { planId } = route.params;
+const LearningPlanDetailsScreen = () => {
+  const { planId } = useLocalSearchParams();
   const { data: plan, isLoading } = useLearningPlanDetails(planId);
 
   if (isLoading) {

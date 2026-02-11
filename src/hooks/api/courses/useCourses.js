@@ -3,15 +3,19 @@ import { queryKeys } from '../../../api/queryClient';
 import apiClient from '../../../api/client';
 
 // ============ Get Enrolled Courses ============
-export const useEnrolledCourses = (userId, options = {}) => {
+export const useEnrolledCourses = (sortAttr = 'enrollment_date', sortDir = 'desc', options = {}) => {
   return useQuery({
-    queryKey: queryKeys.enrolledCourses(userId),
+    queryKey: queryKeys.enrolledCourses(sortAttr, sortDir),
     queryFn: async () => {
-      // Adjust endpoint to match your API
-      const response = await apiClient.get(`/users/${userId}/courses/enrolled`);
-      return response.data;
+      const response = await apiClient.get('/taallum/v1/learn/my-courses-and-learning-plans', {
+        params: {
+          sort_attr: sortAttr,
+          sort_dir: sortDir,
+        },
+      });
+      // Response structure: { success: true, data: [...courses...], status: 200 }
+      return response.data?.data || [];
     },
-    enabled: !!userId,
     ...options,
   });
 };

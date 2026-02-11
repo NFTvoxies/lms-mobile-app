@@ -49,12 +49,16 @@ export const useLogin = () => {
           managedResources: decodedToken.authorization?.managed_resources || [],
         },
       };
+
+      const tenantSlug = decodedToken.tenant_id === 'learn'
+        ? 'taallum'
+        : decodedToken.tenant_id;
       
       await login({
         token: actualData.access_token,
         refreshToken: actualData.refresh_token || null,
         user: user,
-        tenantId: decodedToken.tenant_id,
+        tenantId: tenantSlug,
         tokenExpiry: decodedToken.exp, // JWT expiry timestamp
       });
     },
