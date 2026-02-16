@@ -4,8 +4,10 @@ import { ActivityIndicator, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { TamaguiProvider } from '@tamagui/core';
+import { PortalProvider } from '@tamagui/portal';
 import { queryClient } from '../src/api/queryClient';
 import { AuthProvider, useAuth } from '../src/contexts/AuthContext';
+import { OnboardingProvider, useOnboarding } from '../src/contexts/OnboardingContext';
 import tamaguiConfig from '../tamagui.config';
 
 const LoadingScreen = () => (
@@ -15,25 +17,34 @@ const LoadingScreen = () => (
 );
 
 const AuthGate = ({ children }) => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading: authLoading } = useAuth();
+  const { hasCompletedOnboarding, isLoading: onboardingLoading } = useOnboarding();
   const segments = useSegments();
   const router = useRouter();
 
   useEffect(() => {
-    if (isLoading) {
+    if (authLoading || onboardingLoading) {
       return;
     }
 
     const inAuthGroup = segments[0] === '(auth)';
+    const inOnboarding = segments[0] === 'onboarding';
 
-    if (!isAuthenticated && !inAuthGroup) {
+    // If user hasn't completed onboarding and not already on onboarding screen
+    if (hasCompletedOnboarding === false && !inOnboarding) {
+      router.replace('/onboarding');
+      return;
+    }
+
+    // Standard auth routing
+    if (!isAuthenticated && !inAuthGroup && hasCompletedOnboarding) {
       router.replace('/login');
     } else if (isAuthenticated && inAuthGroup) {
       router.replace('/');
     }
-  }, [isAuthenticated, isLoading, segments, router]);
+  }, [isAuthenticated, authLoading, hasCompletedOnboarding, onboardingLoading, segments, router]);
 
-  if (isLoading) {
+  if (authLoading || onboardingLoading) {
     return <LoadingScreen />;
   }
 
@@ -44,12 +55,16 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <TamaguiProvider config={tamaguiConfig} defaultTheme="light">
-        <AuthProvider>
-          <AuthGate>
-            <Slot />
-            <StatusBar style="auto" />
-          </AuthGate>
-        </AuthProvider>
+        <PortalProvider shouldAddRootHost>
+          <OnboardingProvider>
+            <AuthProvider>
+              <AuthGate>
+                <Slot />
+                <StatusBar style="auto" />
+              </AuthGate>
+            </AuthProvider>
+          </OnboardingProvider>
+        </PortalProvider>
       </TamaguiProvider>
     </QueryClientProvider>
   );

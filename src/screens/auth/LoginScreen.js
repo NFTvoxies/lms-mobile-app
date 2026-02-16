@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,13 +10,15 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useLogin } from '../../hooks/api/auth/useAuth';
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useLogin } from "../../hooks/api/auth/useAuth";
+import { HugeiconsIcon } from "@hugeicons/react-native";
+import { ViewIcon, ViewOffSlashIcon } from "@hugeicons/core-free-icons";
 
 const LoginScreen = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const loginMutation = useLogin();
@@ -24,7 +26,7 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     // Basic validation
     if (!username || !password) {
-      Alert.alert('Error', 'Please enter both username and password');
+      Alert.alert("Error", "Please enter both username and password");
       return;
     }
 
@@ -35,13 +37,16 @@ const LoginScreen = () => {
       });
       // Navigation to main app is handled by AuthContext
     } catch (error) {
-      console.log('Login error:', error);
-      const errorMessage = error.response?.data?.message 
-        || error.message 
-        || 'Invalid credentials. Please try again.';
+      console.log("Login error:", error);
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Invalid credentials. Please try again.";
       Alert.alert(
-        'Login Failed',
-        typeof errorMessage === 'string' ? errorMessage : 'An error occurred. Please try again.'
+        "Login Failed",
+        typeof errorMessage === "string"
+          ? errorMessage
+          : "An error occurred. Please try again.",
       );
     }
   };
@@ -49,7 +54,7 @@ const LoginScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.keyboardView}
       >
         <ScrollView
@@ -95,7 +100,11 @@ const LoginScreen = () => {
                   style={styles.eyeIcon}
                   onPress={() => setShowPassword(!showPassword)}
                 >
-                  <Text>{showPassword ? '👁️' : '👁️‍🗨️'}</Text>
+                  {showPassword ? (
+                    <HugeiconsIcon icon={ViewIcon} />
+                  ) : (
+                    <HugeiconsIcon icon={ViewOffSlashIcon} />
+                  )}
                 </TouchableOpacity>
               </View>
             </View>
@@ -138,98 +147,98 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   keyboardView: {
     flex: 1,
   },
   scrollContent: {
     flexGrow: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 20,
   },
   header: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 40,
   },
   title: {
     fontSize: 32,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: "#666",
   },
   form: {
-    width: '100%',
+    width: "100%",
   },
   inputContainer: {
     marginBottom: 20,
   },
   label: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
     marginBottom: 8,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: "#f9f9f9",
   },
   passwordContainer: {
-    position: 'relative',
+    position: "relative",
   },
   passwordInput: {
     paddingRight: 50,
   },
   eyeIcon: {
-    position: 'absolute',
+    position: "absolute",
     right: 12,
     top: 12,
     padding: 4,
   },
   forgotPassword: {
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
     marginBottom: 24,
   },
   forgotPasswordText: {
-    color: '#007AFF',
+    color: "#007AFF",
     fontSize: 14,
   },
   loginButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: "#007AFF",
     padding: 16,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 16,
   },
   loginButtonDisabled: {
-    backgroundColor: '#ccc',
+    backgroundColor: "#ccc",
   },
   loginButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   registerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     marginTop: 16,
   },
   registerText: {
-    color: '#666',
+    color: "#666",
     fontSize: 14,
   },
   registerLink: {
-    color: '#007AFF',
+    color: "#007AFF",
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
 

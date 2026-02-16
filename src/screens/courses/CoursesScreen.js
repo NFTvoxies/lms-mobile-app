@@ -32,7 +32,6 @@ const CoursesScreen = () => {
   // The hook now returns the courses array directly
   const courses = Array.isArray(coursesResponse) ? coursesResponse : [];
 
-  console.log('Courses from API:', courses);
 
   // Get status badge info based on enrollment status and validity
   const getStatusInfo = (course) => {
@@ -104,10 +103,7 @@ const CoursesScreen = () => {
         <TouchableOpacity
           style={styles.courseCard}
           onPress={() =>
-            router.push({
-              pathname: '/courses/[courseId]',
-              params: { courseId: item.id },
-            })
+            router.push(`/courses/${item.id}`)
           }
           activeOpacity={0.7}
         >
@@ -378,7 +374,7 @@ const styles = StyleSheet.create({
   },
   listContent: {
     paddingHorizontal: 20,
-    paddingBottom: 32,
+    paddingBottom: 90, // Tab bar height (70px) + spacing (20px)
   },
   courseCard: {
     backgroundColor: '#fff',
@@ -388,7 +384,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.08,
     shadowRadius: 12,
-    elevation: 4,
+    elevation: 2,
     overflow: 'hidden',
   },
   cardContent: {

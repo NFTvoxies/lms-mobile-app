@@ -21,27 +21,28 @@ export const queryClient = new QueryClient({
 export const queryKeys = {
   // Auth
   user: ['user'],
-  
+
   // Courses
   courses: (filters) => ['courses', filters],
   enrolledCourses: (userId) => ['enrolledCourses', userId],
   courseDetails: (courseId) => ['course', courseId],
+  coursePreview: (courseId, trackEnabled) => ['coursePreview', courseId, trackEnabled],
   courseContent: (courseId) => ['courseContent', courseId],
   courseProgress: (courseId, userId) => ['courseProgress', courseId, userId],
-  
+
   // Categories
   categories: (parentId) => ['categories', parentId],
   categoryTree: ['categoryTree'],
-  
+
   // Learning Plans
   learningPlans: (filters) => ['learningPlans', filters],
   learningPlanDetails: (planId) => ['learningPlan', planId],
   userLearningPlans: (userId) => ['userLearningPlans', userId],
-  
+
   // Notifications
   notifications: (userId) => ['notifications', userId],
   notificationCount: (userId) => ['notificationCount', userId],
-  
+
   // Dashboard
   dashboardStats: (userId) => ['dashboardStats', userId],
   recentActivity: (userId) => ['recentActivity', userId],

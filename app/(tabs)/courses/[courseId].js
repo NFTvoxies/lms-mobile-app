@@ -1,12 +1,12 @@
 import React from 'react';
-import CourseDetailsScreen from '../../../src/screens/courses/CourseDetailsScreen';
+import CourseDetailScreen from '../../../src/screens/courses/CourseDetailScreen';
 
 export const options = {
   title: 'Course Details',
-  headerShown: true,
+  headerShown: false,
   headerBackTitle: 'Back',
 };
 
 export default function CourseDetailsRoute() {
-  return <CourseDetailsScreen />;
+  return <CourseDetailScreen />;
 }

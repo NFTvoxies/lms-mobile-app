@@ -83,31 +83,31 @@ const ProfileScreen = () => {
         {/* Profile Info */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Account Information</Text>
-          
+
           <ProfileItem
             icon="person-outline"
             label="Username"
             value={user?.username || 'Not set'}
           />
-          
+
           <ProfileItem
             icon="person-outline"
             label="Full Name"
             value={user?.fullName || `${user?.firstName || ''} ${user?.lastName || ''}`.trim() || 'Not set'}
           />
-          
+
           <ProfileItem
             icon="mail-outline"
             label="Email"
             value={user?.email || 'Not set'}
           />
-          
+
           <ProfileItem
             icon="finger-print-outline"
             label="User ID"
             value={user?.id?.toString() || 'Not set'}
           />
-          
+
           {user?.level && (
             <ProfileItem
               icon="shield-outline"
@@ -120,20 +120,20 @@ const ProfileScreen = () => {
         {/* Settings */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Settings</Text>
-          
+
           <ProfileItem
             icon="language-outline"
             label="Language"
             value="English"
             onPress={() => Alert.alert('Coming Soon', 'Language settings will be available soon')}
           />
-          
+
           <ProfileItem
             icon="notifications-outline"
             label="Notifications"
             onPress={() => Alert.alert('Coming Soon', 'Notification settings will be available soon')}
           />
-          
+
           <ProfileItem
             icon="lock-closed-outline"
             label="Change Password"
@@ -144,19 +144,19 @@ const ProfileScreen = () => {
         {/* About */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>About</Text>
-          
+
           <ProfileItem
             icon="information-circle-outline"
             label="App Version"
             value="1.0.0"
           />
-          
+
           <ProfileItem
             icon="document-text-outline"
             label="Terms & Conditions"
             onPress={() => Alert.alert('Coming Soon', 'Terms & Conditions will be available soon')}
           />
-          
+
           <ProfileItem
             icon="shield-checkmark-outline"
             label="Privacy Policy"
@@ -184,6 +184,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
+    paddingBottom: 60,
   },
   scrollView: {
     flex: 1,
@@ -264,6 +265,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 16,
     gap: 8,
+
   },
   logoutText: {
     fontSize: 16,

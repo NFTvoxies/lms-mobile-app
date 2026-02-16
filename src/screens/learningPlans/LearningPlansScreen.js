@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
   },
   listContent: {
     padding: 16,
+    paddingBottom: 90, // Tab bar height (70px) + spacing (20px)
   },
   planCard: {
     backgroundColor: '#fff',

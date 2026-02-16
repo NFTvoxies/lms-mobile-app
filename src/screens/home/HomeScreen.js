@@ -189,12 +189,7 @@ const HomeScreen = () => {
           overflow="hidden"
           backgroundColor="#fff"
           marginRight={14}
-          onPress={() =>
-            router.push({
-              pathname: '/courses/[courseId]',
-              params: { courseId: item.id },
-            })
-          }
+          onPress={() => router.push(`/courses/${item.id}`)}
         >
           <View style={styles.cardImageWrapper}>
             {item.image ? (
@@ -204,8 +199,8 @@ const HomeScreen = () => {
                 <Ionicons name="image-outline" size={28} color="#8C8C8C" />
               </View>
             )}
-            <View style={[styles.statusBadge, { backgroundColor: status.color }]}
-            >
+            <View style={[styles.statusBadge, { backgroundColor: status.color }]}>
+
               <Text style={[styles.statusText, { color: status.textColor }]}>
                 {status.label}
               </Text>
@@ -414,7 +409,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingBottom: 32,
+    paddingBottom: 90, // Tab bar height (70px) + spacing (20px)
   },
   loadingContainer: {
     flex: 1,
